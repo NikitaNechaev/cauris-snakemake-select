@@ -1,0 +1,44 @@
+results: results
+catalog:
+  # snapshot reads archived UniProt exports. live explicitly queries the current API.
+  mode: snapshot
+  directory: inputs/uniprot_catalog
+  scope: expanded
+  request_delay: 0.3
+inputs:
+  selected: inputs/selected_accessions.txt
+  genomes: inputs/ncbi_dataset/data
+  human_proteome: inputs/human_reference.faa
+  clade_assignments: inputs/clade_assignments.tsv
+  clade_comparisons: inputs/all_reference_comparisons.tsv
+  # Optional accession allowlist to recover the historical candidate set.
+  candidate_accessions: null
+  # Set to an NCBI data directory to enable the annotated-isolate branch.
+  isolates: null
+  # Supply both to reuse archived skani matrices, or leave both null to recompute.
+  ani_matrix: null
+  af_matrix: null
+threads:
+  search: 8
+  mapping: 2
+  mafft: 8
+analysis:
+  cluster_identity: 0.50
+  cluster_coverage: 0.70
+  diamond_evalue: 0.001
+  diamond_max_targets: 0
+  mapping_identity: 40.0
+  mapping_coverage: 70.0
+  isolate_identity: 40.0
+  isolate_protein_coverage: 70.0
+  isolate_candidate_coverage: 70.0
+  clone_ani: 99.9
+  group_ani: 99.0
+  min_af: 70.0
+  edge_window: 1500
+  near_identity: 5.0
+  near_coverage: 5.0
+  min_clade_n: 5
+  mafft_method: auto
+  min_occupancy: 0.8
+  plot_top: 5

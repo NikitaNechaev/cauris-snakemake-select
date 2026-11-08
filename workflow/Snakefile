@@ -1,0 +1,16 @@
+from pathlib import Path
+
+WORKFLOW_DIR = Path(workflow.basedir)
+include: "rules/common.smk"
+
+wildcard_constraints:
+    assembly=r"GC[AF]_\d+\.\d+"
+
+rule all:
+    input:
+        [result(f"{FINAL}/{name}") for name in FINAL_FILES],
+        *([result(f"{ISOLATES}/summary")] if SRC["isolates"] else []),
+
+include: "rules/catalog.smk"
+include: "rules/population.smk"
+include: "rules/report.smk"

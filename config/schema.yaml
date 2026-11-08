@@ -1,0 +1,132 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+type: object
+additionalProperties: false
+required:
+- results
+- catalog
+- inputs
+- threads
+- analysis
+properties:
+  results: &id001
+    type: string
+    minLength: 1
+  catalog:
+    type: object
+    additionalProperties: false
+    required:
+    - mode
+    - directory
+    - scope
+    - request_delay
+    properties:
+      mode:
+        enum:
+        - snapshot
+        - live
+      directory: *id001
+      scope:
+        enum:
+        - auris
+        - family
+        - expanded
+      request_delay:
+        type: number
+        minimum: 0
+  inputs:
+    type: object
+    additionalProperties: false
+    required:
+    - selected
+    - genomes
+    - human_proteome
+    - clade_assignments
+    - clade_comparisons
+    - candidate_accessions
+    - isolates
+    - ani_matrix
+    - af_matrix
+    properties:
+      selected: *id001
+      genomes: *id001
+      human_proteome: *id001
+      clade_assignments: *id001
+      clade_comparisons: *id001
+      candidate_accessions: &id002
+        anyOf:
+        - *id001
+        - type: 'null'
+      isolates: *id002
+      ani_matrix: *id002
+      af_matrix: *id002
+  threads:
+    type: object
+    additionalProperties: false
+    required:
+    - search
+    - mapping
+    - mafft
+    properties:
+      search: &id003
+        type: integer
+        minimum: 1
+      mapping: *id003
+      mafft: *id003
+  analysis:
+    type: object
+    additionalProperties: false
+    required:
+    - cluster_identity
+    - cluster_coverage
+    - diamond_evalue
+    - diamond_max_targets
+    - mapping_identity
+    - mapping_coverage
+    - isolate_identity
+    - isolate_protein_coverage
+    - isolate_candidate_coverage
+    - clone_ani
+    - group_ani
+    - min_af
+    - edge_window
+    - near_identity
+    - near_coverage
+    - min_clade_n
+    - mafft_method
+    - min_occupancy
+    - plot_top
+    properties:
+      cluster_identity: &id004
+        type: number
+        exclusiveMinimum: 0
+        maximum: 1
+      cluster_coverage: *id004
+      diamond_evalue:
+        type: number
+        exclusiveMinimum: 0
+      diamond_max_targets: &id006
+        type: integer
+        minimum: 0
+      mapping_identity: &id005
+        type: number
+        minimum: 0
+        maximum: 100
+      mapping_coverage: *id005
+      isolate_identity: *id005
+      isolate_protein_coverage: *id005
+      isolate_candidate_coverage: *id005
+      clone_ani: *id005
+      group_ani: *id005
+      min_af: *id005
+      edge_window: *id003
+      near_identity: *id005
+      near_coverage: *id005
+      min_clade_n:
+        type: integer
+        minimum: 2
+      mafft_method:
+        enum:
+        - auto
+        - linsi
+      min_occupancy: *id004
+      plot_top: *id006

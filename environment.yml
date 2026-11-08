@@ -1,0 +1,9 @@
+name: cauris-workflow
+channels:
+  - conda-forge
+  - bioconda
+  - nodefaults
+dependencies:
+  - python=3.12
+  - snakemake-minimal=9.23.0
+  - conda>=24.11
